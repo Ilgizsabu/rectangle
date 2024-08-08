@@ -3,32 +3,23 @@ const findDistance = (a, b, c, d) => {
 }
 
 const isTriangle = (x1, y1, x2, y2, x3, y3) => {
-    const AB = findDistance(x2, y2, x1, y1);
-    const BC = findDistance(x3, y3, x2, y2);
-    const CA = findDistance(x3, y3, x1, y1);
+    const ab = findDistance(x2, y2, x1, y1);
+    const bc = findDistance(x3, y3, x2, y2);
+    const ca = findDistance(x3, y3, x1, y1);
 
-    const exists = (AB + BC > CA && BC + CA > AB && CA + AB > BC);
-    const isIsosceles = (AB === BC) || (CA === BC) || (CA === AB);
-    const isEquilateral = (AB === BC) && (BC === CA);
+    const exists = (ab + bc > ca && bc + ca > ab && ca + ab > bc);
+    const isIsosceles = (ab === bc) || (ca === bc) || (ca === ab);
+    const isEquilateral = (ab === bc) && (bc === ca);
+    const isRightTriangle = (ab ** 2 + bc ** 2 === ca ** 2) || 
+                            (ab ** 2 + ca ** 2 === bc ** 2) || 
+                            (bc ** 2 + ca ** 2 === ab ** 2);
 
     return { 
         exists, 
         isIsosceles, 
-        isEquilateral 
+        isEquilateral,
+        isRightTriangle 
     };
 }
 
-const isRightTriangle = (x1, y1, x2, y2, x3, y3) => {
-    const AB2 = findDistanceSquar(x1, y1, x2, y2);
-    const BC2 = findDistanceSquar(x2, y2, x3, y3);
-    const CA2 = findDistanceSquar(x3, y3, x1, y1);
-
-    return (AB2 + BC2 === CA2) || (AB2 + CA2 === BC2) || (BC2 + CA2 === AB2);
-}
-
-const findDistanceSquar = (a, b, c, d) => {
-   return (c - a) ** 2 + (d - b) ** 2;
-}
-
-
-isRightTriangle(-3, -3, 0, 2, 3, -3);
+isTriangle(-3, -3, 0, 2, 3, -3);
